@@ -1,7 +1,7 @@
 #Lab 2 -Enunciado
 ## Introdução
 Considere que se pretende representar uma estrutura de Bookmarks como  apresentada na Figura 1
-![figura1](images/figura1.png)
+![figura1](images/figura_1.png)
 
 Para tal optou-se por usar o ADT Tree disponibilizada no package pt.pa.adts
 
@@ -45,7 +45,7 @@ Este nível é para quem pretende fazer avançar os seus conhecimentos na matér
 -	`public String printByLevels()`- Imprime a árvore por níveis, colocando um nível por linha.
 
 Exemplo do printByLevels:
-![figura1](images/figura2.png)
+![figura1](images/figura_2.png)
 
 Nota: para a implementação da operação printByLevels, sugere-se que parta do algoritmo BFS (Breath First Search)  dada nos slides das aulas TP e modifique-o de modo a quando os nós de um nível já tiverem sido todos processados, mude de linha. 
 
