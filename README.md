@@ -1,11 +1,13 @@
-#Lab 2 -Enunciado
+# Lab 2 - Enunciado
+
 ## Introdução
+
 Considere que se pretende representar uma estrutura de Bookmarks como  apresentada na Figura 1
 ![figura1](images/figura_1.png)
 
 Para tal optou-se por usar o ADT Tree disponibilizada no package pt.pa.adts
 
-##Nível Básico (Acompanhamento em Aula ou Autónomo)
+## Nível Básico (Acompanhamento em Aula ou Autónomo)
  
 A classe BookmarkEntry serve para representar pastas assim como bookmarks concretos; no caso de pastas só contém a chave (atributo “key”).
 
@@ -34,7 +36,8 @@ NOTA: Todos os métodos seguintes deverão ser implementados invocando métodos 
 
 - `void move(Position<E> existingPosition, Position<E> newParent)` --- move (remove e insere) um nó da àrvore para descendente de outro nó.
 
-##Nível Avançado (Autónomo)
+## Nível Avançado (Autónomo)
+
 Este nível é para quem pretende fazer avançar os seus conhecimentos na matéria, podendo fazer uso dos horários de dúvidas para acompanhamento.
 
 1.	Elabore os testes unitários da implementação TreeLinked.

@@ -3,20 +3,19 @@ package pt.pa.adts;
 import java.util.*;
 
 /**
- *
- * @author patricia.macedo
  * @param <E> type of elements of the tree
+ * @author patricia.macedo
  */
 public class TreeLinked<E> implements Tree<E> {
 
     //** TreeNode implemented as a inner class at the end **/
-    
-    private TreeNode root; 
+
+    private TreeNode root;
 
     public TreeLinked() {
-     this.root=null;
+        this.root = null;
     }
-   
+
     public TreeLinked(E root) {
         this.root = new TreeNode(root);
     }
@@ -31,7 +30,7 @@ public class TreeLinked<E> implements Tree<E> {
     }
 
     public int size(TreeNode treeNode) {
-       
+
         if (treeNode.children.isEmpty()) {
             return 1;
         } else {
@@ -52,8 +51,8 @@ public class TreeLinked<E> implements Tree<E> {
     @Override
     public E replace(Position<E> position, E e) throws InvalidPositionException {
         TreeNode node = checkPosition(position);
-        E replacedElem= node.element;
-        node.element= e;
+        E replacedElem = node.element;
+        node.element = e;
         return replacedElem;
     }
 
@@ -102,12 +101,12 @@ public class TreeLinked<E> implements Tree<E> {
     @Override
     public Position<E> insert(Position<E> parent, E elem)
             throws BoundaryViolationException, InvalidPositionException {
-        if(isEmpty()){
-            if( parent!= null) throw new InvalidPositionException("Pai não é nulo");
+        if (isEmpty()) {
+            if (parent != null) throw new InvalidPositionException("Pai não é nulo");
             this.root = new TreeNode(elem);
             return root;
         }
-        TreeNode  parentNode = checkPosition(parent);
+        TreeNode parentNode = checkPosition(parent);
         TreeNode node = new TreeNode(elem, parentNode);
         parentNode.children.add(node);
         return node;
@@ -117,9 +116,9 @@ public class TreeLinked<E> implements Tree<E> {
     @Override
     public Position<E> insert(Position<E> parent, E elem, int order)
             throws BoundaryViolationException, InvalidPositionException {
-        if(isEmpty()){
-            if( parent!= null) throw new InvalidPositionException("Pai não é nulo");
-            if (order != 0 ) throw new BoundaryViolationException("Fora de limites");
+        if (isEmpty()) {
+            if (parent != null) throw new InvalidPositionException("Pai não é nulo");
+            if (order != 0) throw new BoundaryViolationException("Fora de limites");
             this.root = new TreeNode(elem);
             return root;
         }
@@ -137,8 +136,8 @@ public class TreeLinked<E> implements Tree<E> {
     public E remove(Position<E> position) throws InvalidPositionException {
         TreeNode aux = checkPosition(position);
         E elem = aux.element;
-        if( aux==root) {
-            root= null;
+        if (aux == root) {
+            root = null;
             return elem;
         }
         aux.parent.children.remove(aux);
@@ -179,6 +178,7 @@ public class TreeLinked<E> implements Tree<E> {
         }
         return elements;
     }
+
     /*
         auxiliary method to check if Position is valid and cast to a treeNode
      */
@@ -208,7 +208,9 @@ public class TreeLinked<E> implements Tree<E> {
         return lista;
     }
 
-    /** auxiliary recursive method for elements() method**/
+    /**
+     * auxiliary recursive method for elements() method
+     **/
 
     private void elements(Position<E> position, ArrayList<E> lista) {
 
@@ -227,7 +229,10 @@ public class TreeLinked<E> implements Tree<E> {
         }
         return lista;
     }
-    /** auxiliary recursive method for positions() method**/
+
+    /**
+     * auxiliary recursive method for positions() method
+     **/
     private void positions(Position<E> position, ArrayList<Position<E>> lista) {
 
         for (Position<E> w : children(position)) {
@@ -236,29 +241,24 @@ public class TreeLinked<E> implements Tree<E> {
         lista.add(lista.size(), position); // visit (position)
     }
 
-   
 
-    private int height(TreeNode treeNode) {
-        if (isExternal(treeNode)) {
-            return 1;
-        }
-        int maximo = 0;
-       for (TreeNode child : treeNode.children) {
-            int h = height(child);
-            if (maximo < h) {
-                maximo = h;
+    private int height(TreeNode treeRoot) {
+        if (treeRoot == null) return -1;
+        if (treeRoot.children.isEmpty()) return 0; /* importante */
+
+        /* Algoritmo de seleção de máximo: */
+        int childMaxHeight = Integer.MIN_VALUE;
+        for (TreeNode childRoot : treeRoot.children) {
+            int childHeight = height(childRoot);
+            if (childHeight > childMaxHeight) {
+                childMaxHeight = childHeight;
             }
         }
-        return 1 + maximo;
-
+        return 1 + childMaxHeight;
     }
 
     public int height() {
-        int h = 0;
-        if (!isEmpty()) {
-            h = height(root);
-        }
-        return h;
+        return height(this.root);
     }
 
 
@@ -289,7 +289,9 @@ public class TreeLinked<E> implements Tree<E> {
         return str;
     }
 
-    /** auxiliary method to format a level of the tree*/
+    /**
+     * auxiliary method to format a level of the tree
+     */
 
     private String printLevel(int level) {
         String str = "";
@@ -299,8 +301,8 @@ public class TreeLinked<E> implements Tree<E> {
         return str + "-";
     }
 
-     /**
-     *  inner class - represent a node of a tree. Each node have a list of children, that can be empty.
+    /**
+     * inner class - represent a node of a tree. Each node have a list of children, that can be empty.
      */
     private class TreeNode implements Position<E> {
 
@@ -328,7 +330,6 @@ public class TreeLinked<E> implements Tree<E> {
         }
 
     }
-
 
 
 }
