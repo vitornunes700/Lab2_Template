@@ -331,5 +331,11 @@ public class TreeLinked<E> implements Tree<E> {
 
     }
 
-
+    public void move(Position<E> existingPosition, Position<E> newParent){
+        TreeNode ot = checkPosition(existingPosition);
+        TreeNode nt = checkPosition(newParent);
+        remove(existingPosition);
+        ot.parent = nt;
+        nt.children.add(ot);
+    }
 }

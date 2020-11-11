@@ -129,5 +129,6 @@ public interface Tree<E> {
    */
   public int height();
 
-  }
+  public void move(Position<E> existingPosition, Position<E> newParent);
+}
 
