@@ -1,12 +1,13 @@
 package pt.pa.model;
 
 import pt.pa.adts.Position;
+import pt.pa.adts.Tree;
 import pt.pa.adts.TreeLinked;
 import pt.pa.model.BookmarkEntry;
 import pt.pa.model.BookmarkInvalidOperation;
 
 public class BookmarkManager {
-    private TreeLinked<BookmarkEntry> bookmarks;
+    private Tree<BookmarkEntry> bookmarks;
 
     public BookmarkManager() {
         BookmarkEntry bm = new BookmarkEntry("bookmarks");
@@ -28,6 +29,8 @@ public class BookmarkManager {
             }
         }
         return false;
+
+
     }
 
     public void addBookmarkFolder(String keyParent, String keyFolder) throws BookmarkInvalidOperation{
@@ -39,6 +42,8 @@ public class BookmarkManager {
         }
         BookmarkEntry be = new BookmarkEntry(keyFolder);
         bookmarks.insert(find(keyParent), be);
+
+
     }
 
     public void addBookmarkEntry(String keyParent, String keyEntry, String url) throws BookmarkInvalidOperation{
@@ -46,14 +51,14 @@ public class BookmarkManager {
             throw new BookmarkInvalidOperation("Parent folder doesn't exist");
         }
         if(exists(keyEntry)){
-            throw new BookmarkInvalidOperation("New folder already exists");
+            throw new BookmarkInvalidOperation("New entry already exists");
         }
         BookmarkEntry bk = new BookmarkEntry(keyEntry, url);
         bookmarks.insert(find(keyParent), bk);
     }
 
     public int getTotalEntries(){
-        return bookmarks.size();
+        return bookmarks.size() - 1;
     }
 
     public String getParentFolder(String keyEntry) throws BookmarkInvalidOperation{
@@ -70,7 +75,31 @@ public class BookmarkManager {
         return bookmarks.parent(bb).element().getKey();
     }
 
-    public TreeLinked<BookmarkEntry> getBookmarks(){
+    public Tree<BookmarkEntry> getBookmarks(){
         return bookmarks;
+    }
+
+    public int getTotalFolders(){
+        int total = 0;
+        for(BookmarkEntry b : bookmarks.elements()){
+            if(b.isFolder()){
+                total++;
+            }
+        }
+        return total;
+    }
+
+    public String fullPathOf(String key) throws BookmarkInvalidOperation {
+        String s = key;
+        Position<BookmarkEntry> bookmarkEntryPosition = find(key);
+        if(bookmarkEntryPosition == null ){
+            throw new BookmarkInvalidOperation("BOOM");
+        }
+        while (!bookmarks.isRoot(bookmarkEntryPosition)) {
+                    bookmarkEntryPosition = bookmarks.parent(bookmarkEntryPosition);
+                    String stringParent = bookmarkEntryPosition.element().getKey();
+                    s = stringParent + ", " + s;
+                }
+          return s;
     }
 }
